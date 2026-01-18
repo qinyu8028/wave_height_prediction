@@ -1,42 +1,54 @@
-# 🌊 WaveHeight-GRU: Spatio-Temporal Forecasting
+# WaveHeight-GRU: Spatio-Temporal Forecasting
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+<!-- [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) -->
 
-## 📖 Project Overview
+## Project Overview
 **WaveHeight-GRU** is a deep learning framework designed for unified wave height prediction across distributed maritime buoy stations.
 
-Developed as part of an Ocean Engineering research initiative at Zhejiang University, this project addresses the challenge of data sparsity in complex maritime environments. It leverages **Gated Recurrent Units (GRU)** combined with **Spatial Embeddings** to unify predictions across **10 distributed stations** covering a 550km maritime range.
+**Motivation & Exploration:**
+Originating from a preliminary course concept, this project represents an **independent exploration** into bridging physical oceanography with modern deep learning. Unlike standard coursework, this repository was **engineered from scratch** to tackle real-world challenges, specifically the **data sparsity and scarcity** inherent in complex maritime environments.
 
-### ✨ Key Features
-- **Spatio-Temporal Modeling:** Implements a GRU backbone with learnable spatial embeddings to capture distinct geographic dynamics of different buoy stations.
-- **Robust Data Pipeline:** Features a custom Pandas pipeline with group-wise sliding window segmentation, successfully reconstructing **7,200 time-step samples** from raw sensor data (achieving a 10x dataset expansion).
-- **Multi-Modal Feature Fusion:** Integrates **7-dimensional feature vectors**, utilizing cyclical time encoding (Sin/Cos) and normalized physical drivers to capture non-linear temporal dynamics.
-- **Reproducibility:** Modular implementation adhering to standard software engineering practices.
+**Technical Approach:**
+The model leverages **Gated Recurrent Units (GRU)** combined with **Physics-Informed Spatio-Temporal Embeddings** (integrating explicit Latitude/Longitude and cyclical time) to unify predictions across **10 distributed stations** covering a 550km maritime range. By fusing these physical constraints with data-driven sequences, the framework achieves high-fidelity forecasting even with discontinuous sensor data.
 
----
+### Key Features
+- **Spatio-Temporal Modeling:** Implements a GRU backbone with explicit spatial coordinates (Latitude/Longitude) and cyclical temporal encodings (Sin/Cos) to capture geographic dynamics of different buoy stations.
+- **Data Pipeline:** A custom Pandas pipeline with group-wise sliding window segmentation which successfully reconstructed **7,200 time-step samples** from raw sensor data (achieving a 10x dataset expansion).
+- **Feature Fusion:** Integrates **multi-modal feature vectors**, fusing normalized physical drivers with spatio-temporal context to handle non-linear wave dynamics.
+- **Open-Source & Reproducible:** Provides the **complete raw dataset** alongside a modular, well-documented codebase. This ensures full transparency and allows researchers to reproduce every step from data preprocessing to model evaluation.
 
-## 🏗️ Methodology
+
+
+## Methodology
 
 The model architecture is designed to handle discontinuous sensor data effectively:
 
-1.  **Input Processing:** Raw sensor data is normalized. Cyclical features are generated to represent temporal continuity.
-2.  **Spatial Embedding:** Station IDs are mapped to dense vectors, allowing the single model to distinguish between different geographic locations.
-3.  **Sequence Learning:** A GRU encoder processes the time-series window to extract temporal dependencies.
-4.  **Prediction:** The fused spatio-temporal representation is passed through a regression head to forecast Significant Wave Height ($H_s$).
+1.  **Temporal Embedding:** Time stamps are decomposed into Sin/Cos components to preserve the cyclical nature of daily variations.
+2.  **Spatial Embedding:** Geographic coordinates (Latitude and Longitude) are normalized and embedded directly into the feature space, allowing the model to learn spatial correlations based on actual physical distance rather than arbitrary station IDs.
+3.  **Sequence Learning:** A GRU encoder processes the fused spatio-temporal vectors to extract long-term dependencies.
+4.  **Wave Height Prediction:** The final representation is passed through a regression head to forecast Significant Wave Height.
 
----
+
 
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
-Ensure you have the following dependencies installed:
-*   Python 3.8+
-*   PyTorch
-*   Pandas
-*   NumPy
-*   Scikit-learn
+**Environment:**
+- Python 3.8+
+- CUDA 11.8+ (Optional, for GPU acceleration)
+
+**Dependencies:**
+Install the core libraries using:
+```bash
+pip install -r requirements.txt
+```
+
+*(Note: The codebase was developed and tested in the following environment. If you encounter compatibility issues, please align with these versions:)*
+- `numpy==2.3.5`
+- `pandas==2.3.3`
+- `torch==2.8.0`
 
 ### 2. Installation
 Clone the repository to your local machine:
@@ -47,22 +59,19 @@ cd wave_height_prediction
 ```
 
 ### 3. Usage
-*(Please ensure your data is placed in the `data/` directory)*
+All source code and dataset files are organized in the root directory for direct execution.
 
 Run the training script:
 ```bash
-# Example command - replace 'main.py' with your actual entry script name
-python main.py
+python train.py
 ```
 
----
+### 4. Performance
+The model is validated using RMSE and MAE on denormalized real-world data, demonstrating high-fidelity mapping of complex non-linear dynamics.
+The **visualized prediction results** will be automatically displayed and saved upon completion of the test process.
 
-## 📊 Performance
-The model is validated using **RMSE** (Root Mean Square Error) and **MAE** (Mean Absolute Error) on denormalized real-world data, demonstrating high-fidelity mapping of complex non-linear dynamics.
 
----
-
-## 👤 Author
+## Author
 **Qianyu Chen**
 *   Zhejiang University
 *   Email: qianychen@zju.edu.cn

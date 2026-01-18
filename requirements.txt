@@ -1,7 +1,6 @@
-# CUDA==12.8
-numpy==2.3.5
-pandas==2.3.3
-scikit-learn==1.8.0
-matplotlib==3.10.8
-torch==2.8.0
-tqdm==4.67.1
+numpy>=2.0.0
+pandas>=2.0.0
+scikit-learn>=1.5.0
+matplotlib>=3.8.0
+tqdm>=4.60.0
+torch>=2.0.0
