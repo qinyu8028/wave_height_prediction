@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)](https://pytorch.org/)
-<!-- [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) -->
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ## Project Overview
 **WaveHeight-GRU** is a deep learning framework designed for unified wave height prediction across distributed maritime buoy stations.
